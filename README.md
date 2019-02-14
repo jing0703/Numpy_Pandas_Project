@@ -1,126 +1,812 @@
-# Numpy_Pandas_Project
+# Data Mining With NumPy and Pandas
 
-Now, it's time to take what you've learned about Python Pandas and apply it to new situations. For this assignment, you'll need to complete one of two (not both) Data Challenges. Once again, which challenge you take on is your choice. Just be sure to give it your all -- as the skills you hone will become powerful tools in your data analytics tool belt.
+Project 1: Game Analytics
+Task of this project is to analyze data for a recent fantasy game 'Heroes of Pymoli'. This game is free-to-play, but players are encouraged to purchase optional items that enhance their playing experience. I generated detailed report to breaks down the game's purchasing data into meaningful insights.
 
-Option 1: Heroes of Pymoli
-Congratulations! After a lot of hard work in the data munging mines, you've landed a job as Lead Analyst for an independent gaming company. You've been assigned the task of analyzing the data for their most recent fantasy game Heroes of Pymoli.
+* Of the 1163 active players, the vast majority are male (84%). There also exists, a smaller, but notable proportion of female players (14%).
 
-Like many others in its genre, the game is free-to-play, but players are encouraged to purchase optional items that enhance their playing experience. As a first task, the company would like you to generate a report that breaks down the game's purchasing data into meaningful insights.
-
-Your final report should include each of the following:
-
-Player Count
-Total Number of Players
-Purchasing Analysis (Total)
-Number of Unique Items
-Average Purchase Price
-Total Number of Purchases
-Total Revenue
-Gender Demographics
-Percentage and Count of Male Players
-Percentage and Count of Female Players
-Percentage and Count of Other / Non-Disclosed
-Purchasing Analysis (Gender)
-The below each broken by gender
-Purchase Count
-Average Purchase Price
-Total Purchase Value
-Normalized Totals
-Age Demographics
-The below each broken into bins of 4 years (i.e. <10, 10-14, 15-19, etc.)
-Purchase Count
-Average Purchase Price
-Total Purchase Value
-Normalized Totals
-Top Spenders
-Identify the the top 5 spenders in the game by total purchase value, then list (in a table):
-SN
-Purchase Count
-Average Purchase Price
-Total Purchase Value
-Most Popular Items
-Identify the 5 most popular items by purchase count, then list (in a table):
-Item ID
-Item Name
-Purchase Count
-Item Price
-Total Purchase Value
-Most Profitable Items
-Identify the 5 most profitable items by total purchase value, then list (in a table):
-Item ID
-Item Name
-Purchase Count
-Item Price
-Total Purchase Value
-As final considerations:
-
-You must use the Pandas Library and the Jupyter Notebook.
-You must submit a link to your Jupyter Notebook with the viewable Data Frames.
-You must include a written description of three observable trends based on the data.
-See Example Solution for a reference on expected format.
+* Our peak age demographic falls between 20-24 (44.8%) with secondary groups falling between 15-19 (18.60%) and 25-29 (13.4%).  
+-----
 
 
-Option 2: Academy of Py
-Well done! Having spent years analyzing financial records for big banks, you've finally scratched your idealistic itch and joined the education sector. In your latest role, you've become the Chief Data Scientist for your city's school district. In this capacity, you'll be helping the school board and mayor make strategic decisions regarding future school budgets and priorities.
+```python
+# Dependencies and Setup
+import pandas as pd
+import numpy as np
 
-As a first task, you've been asked to analyze the district-wide standardized test results. You'll be given access to every student's math and reading scores, as well as various information on the schools they attend. Your responsibility is to aggregate the data to and showcase obvious trends in school performance.
+# File to Load (Remember to Change These)
+file_to_load = "Resources/purchase_data.csv"
 
-Your final report should include each of the following:
+# Read Purchasing File and store into Pandas data frame
+purchase_data = pd.read_csv(file_to_load)
+```
 
-District Summary
-Create a high level snapshot (in table form) of the district's key metrics, including:
-Total Schools
-Total Students
-Total Budget
-Average Math Score
-Average Reading Score
-% Passing Math
-% Passing Reading
-Overall Passing Rate (Average of the above two)
-School Summary
-Create an overview table that summarizes key metrics about each school, including:
-School Name
-School Type
-Total Students
-Total School Budget
-Per Student Budget
-Average Math Score
-Average Reading Score
-% Passing Math
-% Passing Reading
-Overall Passing Rate (Average of the above two)
-Top Performing Schools (By Passing Rate)
-Create a table that highlights the top 5 performing schools based on Overall Passing Rate. Include:
-School Name
-School Type
-Total Students
-Total School Budget
-Per Student Budget
-Average Math Score
-Average Reading Score
-% Passing Math
-% Passing Reading
-Overall Passing Rate (Average of the above two)
-Bottom Performing Schools (By Passing Rate)
-Create a table that highlights the bottom 5 performing schools based on Overall Passing Rate. Include all of the same metrics as above.
-Math Scores by Grade**
-Create a table that lists the average Math Score for students of each grade level (9th, 10th, 11th, 12th) at each school.
-Reading Scores by Grade
-Create a table that lists the average Reading Score for students of each grade level (9th, 10th, 11th, 12th) at each school.
-Scores by School Spending
-Create a table that breaks down school performances based on average Spending Ranges (Per Student). Use 4 reasonable bins to group school spending. Include in the table each of the following:
-Average Math Score
-Average Reading Score
-% Passing Math
-% Passing Reading
-Overall Passing Rate (Average of the above two)
-Scores by School Size
-Repeat the above breakdown, but this time group schools based on a reasonable approximation of school size (Small, Medium, Large).
-Scores by School Type
-Repeat the above breakdown, but this time group schools based on school type (Charter vs. District).
-As final considerations:
+## Player Count
 
-Use the pandas library and Jupyter Notebook.
-You must submit a link to your Jupyter Notebook with the viewable Data Frames.
-You must include a written description of at least two observable trends based on the data.
-See Example Solution for a reference on the expected format.
+
+```python
+# Calculate the Number of Unique Players
+player_demographics = purchase_data.loc[:, ["Gender", "SN", "Age"]]
+num_players = player_demographics["SN"].nunique()
+# Display the total number of players
+pd.DataFrame({"Total Players": [num_players]})
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+```
+.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+```
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Total Players</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>576</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+## Purchasing Analysis (Total)
+
+
+```python
+# Run basic calculations
+average_item_price = purchase_data["Price"].mean()
+total_purchase_value = purchase_data["Price"].sum()
+purchase_count = purchase_data["Price"].count()
+item_count = len(purchase_data["Item ID"].unique())
+
+# Create a DataFrame to hold results
+summary_table = pd.DataFrame({"Number of Unique Items": item_count,
+                              "Total Revenue": [total_purchase_value],
+                              "Number of Purchases": [purchase_count],
+                              "Average Price": [average_item_price]})
+
+# Minor Data Munging
+# summary_table = summary_table.round(2)
+# summary_table ["Average Price"] = summary_table["Average Price"].map("${:,.2f}".format)
+# summary_table ["Number of Purchases"] = summary_table["Number of Purchases"].map("{:,}".format)
+# summary_table ["Total Revenue"] = summary_table["Total Revenue"].map("${:,.2f}".format)
+# summary_table = summary_table.loc[:,["Number of Unique Items", "Average Price", "Number of Purchases", "Total Revenue"]]
+
+# Display the summary_table
+summary_table
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+```
+.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+```
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Average Price</th>
+      <th>Number of Purchases</th>
+      <th>Number of Unique Items</th>
+      <th>Total Revenue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3.050987</td>
+      <td>780</td>
+      <td>183</td>
+      <td>2379.77</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+## Gender Demographics
+
+
+```python
+# Calculate the Number and Percentage by Gender
+gender_demographics_totals = player_demographics["Gender"].value_counts()
+gender_demographics_percents = gender_demographics_totals / num_players * 100
+gender_demographics = pd.DataFrame({"Total Count": gender_demographics_totals, "Percentage of Players": gender_demographics_percents})
+
+# Minor Data Munging
+gender_demographics = gender_demographics.round(2)
+
+gender_demographics
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+```
+.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+```
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Percentage of Players</th>
+      <th>Total Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Male</th>
+      <td>113.19</td>
+      <td>652</td>
+    </tr>
+    <tr>
+      <th>Female</th>
+      <td>19.62</td>
+      <td>113</td>
+    </tr>
+    <tr>
+      <th>Other / Non-Disclosed</th>
+      <td>2.60</td>
+      <td>15</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+## Purchasing Analysis (Gender)
+
+
+```python
+# Run basic calculations
+gender_purchase_total = purchase_data.groupby(["Gender"]).sum()["Price"].rename("Total Purchase Value")
+gender_average = purchase_data.groupby(["Gender"]).mean()["Price"].rename("Average Purchase Price")
+gender_counts = purchase_data.groupby(["Gender"]).count()["Price"].rename("Purchase Count")
+
+# Calculate Normalized Purchasing (Average Total Purchase per Person)
+normalized_total = gender_purchase_total / gender_demographics["Total Count"]
+
+# Convert to DataFrame
+gender_data = pd.DataFrame({"Purchase Count": gender_counts, "Average Purchase Price": gender_average, "Total Purchase Value": gender_purchase_total, "Normalized Totals": normalized_total})
+
+# Minor Data Munging
+gender_data["Average Purchase Price"] = gender_data["Average Purchase Price"].map("${:,.2f}".format)
+gender_data["Total Purchase Value"] = gender_data["Total Purchase Value"].map("${:,.2f}".format)
+gender_data ["Purchase Count"] = gender_data["Purchase Count"].map("{:,}".format)
+gender_data["Avg Total Purchase per Person"] = gender_data["Normalized Totals"].map("${:,.2f}".format)
+gender_data = gender_data.loc[:, ["Purchase Count", "Average Purchase Price", "Total Purchase Value", "Avg Total Purchase per Person"]]
+
+# Display the Gender Table
+gender_data
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+```
+.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+```
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Purchase Count</th>
+      <th>Average Purchase Price</th>
+      <th>Total Purchase Value</th>
+      <th>Avg Total Purchase per Person</th>
+    </tr>
+    <tr>
+      <th>Gender</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Female</th>
+      <td>113</td>
+      <td>$3.20</td>
+      <td>$361.94</td>
+      <td>$3.20</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>652</td>
+      <td>$3.02</td>
+      <td>$1,967.64</td>
+      <td>$3.02</td>
+    </tr>
+    <tr>
+      <th>Other / Non-Disclosed</th>
+      <td>15</td>
+      <td>$3.35</td>
+      <td>$50.19</td>
+      <td>$3.35</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+## Age Demographics
+
+
+```python
+# Establish the bins 
+age_bins = [0, 9.90, 14.90, 19.90, 24.90, 29.90, 34.90, 39.90, 99999]
+group_names = ["<10", "10-14", "15-19", "20-24", "25-29", "30-34", "35-39", "40+"]
+
+# Categorize the existing players using the age bins
+player_demographics["Age Ranges"] = pd.cut(player_demographics["Age"], age_bins, labels=group_names)
+
+# Calculate the Numbers and Percentages by Age Group
+age_demographics_totals = player_demographics["Age Ranges"].value_counts()
+age_demographics_percents = age_demographics_totals / num_players * 100
+age_demographics = pd.DataFrame({"Total Count": age_demographics_totals, "Percentage of Players": age_demographics_percents})
+
+# Minor Data Munging
+age_demographics = age_demographics.round(2)
+
+# Display Age Demographics Table
+age_demographics.sort_index()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+```
+.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+```
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Percentage of Players</th>
+      <th>Total Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>&lt;10</th>
+      <td>3.99</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <th>10-14</th>
+      <td>4.86</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <th>15-19</th>
+      <td>23.61</td>
+      <td>136</td>
+    </tr>
+    <tr>
+      <th>20-24</th>
+      <td>63.37</td>
+      <td>365</td>
+    </tr>
+    <tr>
+      <th>25-29</th>
+      <td>17.53</td>
+      <td>101</td>
+    </tr>
+    <tr>
+      <th>30-34</th>
+      <td>12.67</td>
+      <td>73</td>
+    </tr>
+    <tr>
+      <th>35-39</th>
+      <td>7.12</td>
+      <td>41</td>
+    </tr>
+    <tr>
+      <th>40+</th>
+      <td>2.26</td>
+      <td>13</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+## Purchasing Analysis (Age)
+
+
+```python
+# Bin the Purchasing Data
+purchase_data["Age Ranges"] = pd.cut(purchase_data["Age"], age_bins, labels=group_names)
+
+# Run basic calculations
+age_purchase_total = purchase_data.groupby(["Age Ranges"]).sum()["Price"].rename("Total Purchase Value")
+age_average = purchase_data.groupby(["Age Ranges"]).mean()["Price"].rename("Average Purchase Price")
+age_counts = purchase_data.groupby(["Age Ranges"]).count()["Price"].rename("Purchase Count")
+
+# Calculate Normalized Purchasing (Average Purchase Total per Person)
+normalized_total = age_purchase_total / age_demographics["Total Count"]
+
+# Convert to DataFrame
+age_data = pd.DataFrame({"Purchase Count": age_counts, "Average Purchase Price": age_average, "Total Purchase Value": age_purchase_total, "Normalized Totals": normalized_total})
+
+# Minor Data Munging
+age_data["Average Purchase Price"] = age_data["Average Purchase Price"].map("${:,.2f}".format)
+age_data["Total Purchase Value"] = age_data["Total Purchase Value"].map("${:,.2f}".format)
+age_data ["Purchase Count"] = age_data["Purchase Count"].map("{:,}".format)
+age_data["Avg Total Purchase per Person"] = age_data["Normalized Totals"].map("${:,.2f}".format)
+age_data = age_data.loc[:, ["Purchase Count", "Average Purchase Price", "Total Purchase Value", "Avg Total Purchase per Person"]]
+
+# Display the Age Table
+age_data
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+```
+.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+```
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Purchase Count</th>
+      <th>Average Purchase Price</th>
+      <th>Total Purchase Value</th>
+      <th>Avg Total Purchase per Person</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>10-14</th>
+      <td>28</td>
+      <td>$2.96</td>
+      <td>$82.78</td>
+      <td>$2.96</td>
+    </tr>
+    <tr>
+      <th>15-19</th>
+      <td>136</td>
+      <td>$3.04</td>
+      <td>$412.89</td>
+      <td>$3.04</td>
+    </tr>
+    <tr>
+      <th>20-24</th>
+      <td>365</td>
+      <td>$3.05</td>
+      <td>$1,114.06</td>
+      <td>$3.05</td>
+    </tr>
+    <tr>
+      <th>25-29</th>
+      <td>101</td>
+      <td>$2.90</td>
+      <td>$293.00</td>
+      <td>$2.90</td>
+    </tr>
+    <tr>
+      <th>30-34</th>
+      <td>73</td>
+      <td>$2.93</td>
+      <td>$214.00</td>
+      <td>$2.93</td>
+    </tr>
+    <tr>
+      <th>35-39</th>
+      <td>41</td>
+      <td>$3.60</td>
+      <td>$147.67</td>
+      <td>$3.60</td>
+    </tr>
+    <tr>
+      <th>40+</th>
+      <td>13</td>
+      <td>$2.94</td>
+      <td>$38.24</td>
+      <td>$2.94</td>
+    </tr>
+    <tr>
+      <th>&lt;10</th>
+      <td>23</td>
+      <td>$3.35</td>
+      <td>$77.13</td>
+      <td>$3.35</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+## Top Spenders
+
+
+```python
+# Basic Calculations
+user_total = purchase_data.groupby(["SN"]).sum()["Price"].rename("Total Purchase Value")
+user_average = purchase_data.groupby(["SN"]).mean()["Price"].rename("Average Purchase Price")
+user_count = purchase_data.groupby(["SN"]).count()["Price"].rename("Purchase Count")
+
+# Convert to DataFrame
+user_data = pd.DataFrame({"Total Purchase Value": user_total, "Average Purchase Price": user_average, "Purchase Count": user_count})
+
+# Display Table
+user_sorted = user_data.sort_values("Total Purchase Value", ascending=False)
+
+# Minor Data Munging
+user_sorted["Average Purchase Price"] = user_sorted["Average Purchase Price"].map("${:,.2f}".format)
+user_sorted["Total Purchase Value"] = user_sorted["Total Purchase Value"].map("${:,.2f}".format)
+user_sorted = user_sorted.loc[:,["Purchase Count", "Average Purchase Price", "Total Purchase Value"]]
+
+# Display DataFrame
+user_sorted.head(5)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+```
+.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+```
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Purchase Count</th>
+      <th>Average Purchase Price</th>
+      <th>Total Purchase Value</th>
+    </tr>
+    <tr>
+      <th>SN</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Lisosia93</th>
+      <td>5</td>
+      <td>$3.79</td>
+      <td>$18.96</td>
+    </tr>
+    <tr>
+      <th>Idastidru52</th>
+      <td>4</td>
+      <td>$3.86</td>
+      <td>$15.45</td>
+    </tr>
+    <tr>
+      <th>Chamjask73</th>
+      <td>3</td>
+      <td>$4.61</td>
+      <td>$13.83</td>
+    </tr>
+    <tr>
+      <th>Iral74</th>
+      <td>4</td>
+      <td>$3.40</td>
+      <td>$13.62</td>
+    </tr>
+    <tr>
+      <th>Iskadarya95</th>
+      <td>3</td>
+      <td>$4.37</td>
+      <td>$13.10</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+## Most Popular Items
+
+
+```python
+# Extract item Data
+item_data = purchase_data.loc[:,["Item ID", "Item Name", "Price"]]
+
+# Perform basic calculations
+total_item_purchase = item_data.groupby(["Item ID", "Item Name"]).sum()["Price"].rename("Total Purchase Value")
+average_item_purchase = item_data.groupby(["Item ID", "Item Name"]).mean()["Price"]
+item_count = item_data.groupby(["Item ID", "Item Name"]).count()["Price"].rename("Purchase Count")
+
+# Create new DataFrame
+item_data_pd = pd.DataFrame({"Total Purchase Value": total_item_purchase, "Item Price": average_item_purchase, "Purchase Count": item_count})
+
+# Sort Values
+item_data_count_sorted = item_data_pd.sort_values("Purchase Count", ascending=False)
+
+# Minor Data Munging
+item_data_count_sorted["Item Price"] = item_data_count_sorted["Item Price"].map("${:,.2f}".format)
+item_data_count_sorted["Purchase Count"] = item_data_count_sorted["Purchase Count"].map("{:,}".format)
+item_data_count_sorted["Total Purchase Value"] = item_data_count_sorted["Total Purchase Value"].map("${:,.2f}".format)
+item_popularity = item_data_count_sorted.loc[:,["Purchase Count", "Item Price", "Total Purchase Value"]]
+
+item_popularity.head(5)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+```
+.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+```
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>Purchase Count</th>
+      <th>Item Price</th>
+      <th>Total Purchase Value</th>
+    </tr>
+    <tr>
+      <th>Item ID</th>
+      <th>Item Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>178</th>
+      <th>Oathbreaker, Last Hope of the Breaking Storm</th>
+      <td>12</td>
+      <td>$4.23</td>
+      <td>$50.76</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <th>Fiery Glass Crusader</th>
+      <td>9</td>
+      <td>$4.58</td>
+      <td>$41.22</td>
+    </tr>
+    <tr>
+      <th>108</th>
+      <th>Extraction, Quickblade Of Trembling Hands</th>
+      <td>9</td>
+      <td>$3.53</td>
+      <td>$31.77</td>
+    </tr>
+    <tr>
+      <th>82</th>
+      <th>Nirvana</th>
+      <td>9</td>
+      <td>$4.90</td>
+      <td>$44.10</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <th>Pursuit, Cudgel of Necromancy</th>
+      <td>8</td>
+      <td>$1.02</td>
+      <td>$8.16</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+## Most Profitable Items
+
+
+```python
+# Item Table (Sorted by Total Purchase Value)
+item_total_purchase = item_data_pd.sort_values("Total Purchase Value", ascending=False)
+
+# Minor Data Munging
+item_total_purchase["Item Price"] = item_total_purchase["Item Price"].map("${:,.2f}".format)
+item_total_purchase["Purchase Count"] = item_total_purchase["Purchase Count"].map("{:,}".format)
+item_total_purchase["Total Purchase Value"] = item_total_purchase["Total Purchase Value"].map("${:,.2f}".format)
+item_profitable = item_total_purchase.loc[:,["Purchase Count", "Item Price", "Total Purchase Value"]]
+
+item_profitable.head(5)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+```
+.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+```
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>Purchase Count</th>
+      <th>Item Price</th>
+      <th>Total Purchase Value</th>
+    </tr>
+    <tr>
+      <th>Item ID</th>
+      <th>Item Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>178</th>
+      <th>Oathbreaker, Last Hope of the Breaking Storm</th>
+      <td>12</td>
+      <td>$4.23</td>
+      <td>$50.76</td>
+    </tr>
+    <tr>
+      <th>82</th>
+      <th>Nirvana</th>
+      <td>9</td>
+      <td>$4.90</td>
+      <td>$44.10</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <th>Fiery Glass Crusader</th>
+      <td>9</td>
+      <td>$4.58</td>
+      <td>$41.22</td>
+    </tr>
+    <tr>
+      <th>92</th>
+      <th>Final Critic</th>
+      <td>8</td>
+      <td>$4.88</td>
+      <td>$39.04</td>
+    </tr>
+    <tr>
+      <th>103</th>
+      <th>Singed Scalpel</th>
+      <td>8</td>
+      <td>$4.35</td>
+      <td>$34.80</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+Option 2: Education analysis
+This project is aim at analyzing the district-wide standardized test results and various information about schools, then generating detailed report to showcase obvious trends in school performance. This report will help the school board and mayor make strategic decisions regarding future school budgets and priorities.
+
