@@ -1,39 +1,13 @@
 # Data Mining With NumPy and Pandas
 
 Project 1: Game Analytics
+
 Task of this project is to analyze data for a recent fantasy game 'Heroes of Pymoli'. This game is free-to-play, but players are encouraged to purchase optional items that enhance their playing experience. I generated detailed report to breaks down the game's purchasing data into meaningful insights.
 
 * Of the 1163 active players, the vast majority are male (84%). There also exists, a smaller, but notable proportion of female players (14%).
 
 * Our peak age demographic falls between 20-24 (44.8%) with secondary groups falling between 15-19 (18.60%) and 25-29 (13.4%).  
 -----
-
-
-```python
-# Dependencies and Setup
-import pandas as pd
-import numpy as np
-
-# File to Load (Remember to Change These)
-file_to_load = "Resources/purchase_data.csv"
-
-# Read Purchasing File and store into Pandas data frame
-purchase_data = pd.read_csv(file_to_load)
-```
-
-## Player Count
-
-
-```python
-# Calculate the Number of Unique Players
-player_demographics = purchase_data.loc[:, ["Gender", "SN", "Age"]]
-num_players = player_demographics["SN"].nunique()
-# Display the total number of players
-pd.DataFrame({"Total Players": [num_players]})
-```
-
-
-
 
 <div>
 <style scoped>
@@ -71,7 +45,6 @@ pd.DataFrame({"Total Players": [num_players]})
 
 ## Purchasing Analysis (Total)
 
-
 ```python
 # Run basic calculations
 average_item_price = purchase_data["Price"].mean()
@@ -95,9 +68,6 @@ summary_table = pd.DataFrame({"Number of Unique Items": item_count,
 # Display the summary_table
 summary_table
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -137,10 +107,7 @@ summary_table
 </table>
 </div>
 
-
-
 ## Gender Demographics
-
 
 ```python
 # Calculate the Number and Percentage by Gender
@@ -153,10 +120,6 @@ gender_demographics = gender_demographics.round(2)
 
 gender_demographics
 ```
-
-
-
-
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -206,7 +169,6 @@ gender_demographics
 
 ## Purchasing Analysis (Gender)
 
-
 ```python
 # Run basic calculations
 gender_purchase_total = purchase_data.groupby(["Gender"]).sum()["Price"].rename("Total Purchase Value")
@@ -229,9 +191,6 @@ gender_data = gender_data.loc[:, ["Purchase Count", "Average Purchase Price", "T
 # Display the Gender Table
 gender_data
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -296,7 +255,6 @@ gender_data
 
 ## Age Demographics
 
-
 ```python
 # Establish the bins 
 age_bins = [0, 9.90, 14.90, 19.90, 24.90, 29.90, 34.90, 39.90, 99999]
@@ -316,9 +274,6 @@ age_demographics = age_demographics.round(2)
 # Display Age Demographics Table
 age_demographics.sort_index()
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -420,9 +375,6 @@ age_data = age_data.loc[:, ["Purchase Count", "Average Purchase Price", "Total P
 age_data
 ```
 
-
-
-
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -514,7 +466,6 @@ age_data
 
 ## Top Spenders
 
-
 ```python
 # Basic Calculations
 user_total = purchase_data.groupby(["SN"]).sum()["Price"].rename("Total Purchase Value")
@@ -535,9 +486,6 @@ user_sorted = user_sorted.loc[:,["Purchase Count", "Average Purchase Price", "To
 # Display DataFrame
 user_sorted.head(5)
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -609,7 +557,6 @@ user_sorted.head(5)
 
 ## Most Popular Items
 
-
 ```python
 # Extract item Data
 item_data = purchase_data.loc[:,["Item ID", "Item Name", "Price"]]
@@ -633,9 +580,6 @@ item_popularity = item_data_count_sorted.loc[:,["Purchase Count", "Item Price", 
 
 item_popularity.head(5)
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -714,7 +658,6 @@ item_popularity.head(5)
 
 ## Most Profitable Items
 
-
 ```python
 # Item Table (Sorted by Total Purchase Value)
 item_total_purchase = item_data_pd.sort_values("Total Purchase Value", ascending=False)
@@ -727,8 +670,6 @@ item_profitable = item_total_purchase.loc[:,["Purchase Count", "Item Price", "To
 
 item_profitable.head(5)
 ```
-
-
 
 
 <div>
@@ -807,6 +748,6 @@ item_profitable.head(5)
 
 
 
-Option 2: Education analysis
+Project 2: Education analysis
 This project is aim at analyzing the district-wide standardized test results and various information about schools, then generating detailed report to showcase obvious trends in school performance. This report will help the school board and mayor make strategic decisions regarding future school budgets and priorities.
 
