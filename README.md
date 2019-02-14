@@ -9,41 +9,7 @@ Task of this project is to analyze data for a recent fantasy game 'Heroes of Pym
 * Our peak age demographic falls between 20-24 (44.8%) with secondary groups falling between 15-19 (18.60%) and 25-29 (13.4%).  
 -----
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-```
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-```
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Total Players</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>576</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-## Purchasing Analysis (Total)
+### Purchasing Analysis (Total)
 
 ```python
 # Run basic calculations
@@ -70,21 +36,6 @@ summary_table
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-```
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-```
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -107,7 +58,7 @@ summary_table
 </table>
 </div>
 
-## Gender Demographics
+### Gender Demographics
 
 ```python
 # Calculate the Number and Percentage by Gender
@@ -121,21 +72,7 @@ gender_demographics = gender_demographics.round(2)
 gender_demographics
 ```
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-```
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-```
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -167,7 +104,7 @@ gender_demographics
 
 
 
-## Purchasing Analysis (Gender)
+### Purchasing Analysis (Gender)
 
 ```python
 # Run basic calculations
@@ -193,21 +130,7 @@ gender_data
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-```
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-```
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -253,7 +176,7 @@ gender_data
 
 
 
-## Age Demographics
+### Age Demographics
 
 ```python
 # Establish the bins 
@@ -276,21 +199,7 @@ age_demographics.sort_index()
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-```
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-```
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -346,7 +255,7 @@ age_demographics.sort_index()
 
 
 
-## Purchasing Analysis (Age)
+### Purchasing Analysis (Age)
 
 
 ```python
@@ -376,21 +285,7 @@ age_data
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-```
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-```
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -464,7 +359,7 @@ age_data
 
 
 
-## Top Spenders
+### Top Spenders
 
 ```python
 # Basic Calculations
@@ -488,21 +383,7 @@ user_sorted.head(5)
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-```
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-```
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -555,7 +436,7 @@ user_sorted.head(5)
 
 
 
-## Most Popular Items
+### Most Popular Items
 
 ```python
 # Extract item Data
@@ -582,21 +463,7 @@ item_popularity.head(5)
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-```
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-```
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -656,7 +523,7 @@ item_popularity.head(5)
 
 
 
-## Most Profitable Items
+### Most Profitable Items
 
 ```python
 # Item Table (Sorted by Total Purchase Value)
@@ -673,21 +540,7 @@ item_profitable.head(5)
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-```
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-```
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -750,4 +603,3 @@ item_profitable.head(5)
 
 ## Project 2: Education analysis
 This project is aim at analyzing the district-wide standardized test results and various information about schools, then generating detailed report to showcase obvious trends in school performance. This report will help the school board and mayor make strategic decisions regarding future school budgets and priorities.
-
