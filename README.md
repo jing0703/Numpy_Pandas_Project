@@ -1,6 +1,6 @@
 # Data Mining With NumPy and Pandas
 
-Project 1: Game Analytics
+## Project 1: Game Analytics
 
 Task of this project is to analyze data for a recent fantasy game 'Heroes of Pymoli'. This game is free-to-play, but players are encouraged to purchase optional items that enhance their playing experience. I generated detailed report to breaks down the game's purchasing data into meaningful insights.
 
@@ -748,6 +748,6 @@ item_profitable.head(5)
 
 
 
-Project 2: Education analysis
+## Project 2: Education analysis
 This project is aim at analyzing the district-wide standardized test results and various information about schools, then generating detailed report to showcase obvious trends in school performance. This report will help the school board and mayor make strategic decisions regarding future school budgets and priorities.
 
